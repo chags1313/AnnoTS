@@ -1,22 +1,17 @@
 ---
-title: "ParticleTracker: a gui based particle tracking software"
+title: "QualAI-Signal: a gui based annotation software for human activity classification with wearbale sensors"
 tags:
   - Python
-  - particle tracking
+  - GUI
+  - Wearables
+  - Human activity classification
 authors:
-  - name: Mike I. Smith^[Corresponding author mike.i.smith\@nottingham.ac.uk]
-    orcid: 0000-0002-8210-1264
-    affiliation: "1" # (Multiple affiliations must be quoted)
-  - name: James G. Downs
-    affiliation: 1
-affiliations:
-  - name: School of Physics, University of Nottingham, UK, NG7 2RD
-    index: 1
-date: 14 April 2021
-bibliography: paper.bib
+  - name: Cole J. Hagen^[Corresponding author hagencolej@gmail.com]
 ---
 
 # Summary
+
+Annotating wearble sensor data is an important step in human activity classification with wearable sensors. It enables users the ability to manupulate plots of sensor data to facilate up to 15 time-locked classifications. To date, there are limited annotation software available to classify activities in wearable sensor data (signaliner). 
 
 Tracking the motion of objects in a video is an important part of the
 analysis in a diverse range of subject disciplines [@Cells;@Nanoparticles;@Foams]. It enables one to automate the extraction of quantitative information about size, shape, motion etc. A number of tracking softwares exist [@Trackpy;@opencv_library;@TrackMate] to help with this process but the code can be an entry barrier.
@@ -24,6 +19,8 @@ Even for researchers with the necessary skills, developing the code and optimisi
 accessible to a broader range of researchers.
 
 # Statement of need
+
+`QualAI-Signal` is a gui based annotation software that increases the speed and effieciency of classifying a wide range of activities from sensors in 
 
 `ParticleTracker` is a completely gui based particle tracking software
 that implements and integrates a range of commonly needed tools to help users efficiently develop a wide range of different types of particle tracking projects.
