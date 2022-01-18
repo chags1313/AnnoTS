@@ -8,4 +8,4 @@ QualAI-Signal is a graphical user interface designed to make the process of anno
 pip install -r requirements.txt
 
 # Usage
-python run main1.py
+python run main2.py
