@@ -11,12 +11,12 @@ authors:
 
 # Summary
 
-Annotating wearble sensor data is an important step in human activity classification with wearable sensors. It enables users the ability to manupulate plots of sensor data to facilate up to 15 time-locked classifications. To date, there are limited annotation software available to classify activities in wearable sensor data (signaliner). 
+Annotating wearble sensor data is an important step in human activity classification with wearable sensors. It enables users the ability to explore plots of sensor data and create up to 17 time-locked classifications. To date, there are limited annotation software available to classify activities in wearable sensor data (signaliner). 
 
 
 # Statement of need
 
-`QualAI-Signal` is a gui based annotation software that increases the speed and efficiency of classifying any variety of activities from wearable sensors. 
+`QualAI-Signal` is a gui based annotation software that increases the speed and efficiency of classifying any variety of activities from wearable sensors at any step in the process (raw data, feature extraction, model prediction validation). 
 
 `ParticleTracker` is a completely gui based particle tracking software
 that implements and integrates a range of commonly needed tools to help users efficiently develop a wide range of different types of particle tracking projects.
