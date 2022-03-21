@@ -7,6 +7,7 @@ from pyqtgraph import PlotWidget
 import pandas as pd
 import pyqtgraph as pg
 from PyQt5.QtGui import *
+import webbrowser
 
 class ChecklistDialog(QtGui.QDialog):
 
@@ -134,8 +135,8 @@ class Ui_MainWindow(object):
         self.menuSave.setObjectName("menuSave")
         self.menuLoad = QtWidgets.QMenu(self.menuMenu)
         self.menuLoad.setObjectName("menuLoad")
-        self.menuHelp = QtWidgets.QMenu(self.menubar)
-        self.menuHelp.setObjectName("menuHelp")
+        #self.menuHelp = QtWidgets.QMenu(self.menubar)
+        #self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
         self.toolBar = QtWidgets.QToolBar(MainWindow)
         self.toolBar.setIconSize(QtCore.QSize(60, 60))
@@ -381,7 +382,7 @@ class Ui_MainWindow(object):
         self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionAbout)
         self.menubar.addAction(self.menuMenu.menuAction())
-        self.menubar.addAction(self.menuHelp.menuAction())
+        #self.menubar.addAction(self.menuHelp.menuAction())
         self.toolBar.addAction(self.actionLoad_Signal_Data)
         self.toolBar.addAction(self.actionExport_Annotations)
         self.toolBar.addSeparator()
@@ -417,7 +418,7 @@ class Ui_MainWindow(object):
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuSave.setTitle(_translate("MainWindow", "Save"))
         self.menuLoad.setTitle(_translate("MainWindow", "Load"))
-        self.menuHelp.setTitle(_translate("MainWindow", "Help"))
+        #self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.toolBar_2.setWindowTitle(_translate("MainWindow", "toolBar_2"))
         self.actionPrevious.setText(_translate("MainWindow", "Previous"))
@@ -441,17 +442,17 @@ class Ui_MainWindow(object):
         self.actionXLXV.setText(_translate("MainWindow", "XLXV"))
         self.actionTSV.setText(_translate("MainWindow", "TSV"))
         self.actionTXT.setText(_translate("MainWindow", "TXT"))
-        self.actionAbout.setText(_translate("MainWindow", "About"))
+        self.actionAbout.setText(_translate("MainWindow", "Help"))
         self.actionAbout.setShortcut(_translate("MainWindow", "?"))
         self.actionLoad_Model.setText(_translate("MainWindow", "Load Model"))
         self.actionDeploy_Model_2.setText(_translate("MainWindow", "Deploy Model"))
         self.actionCreate_Playlist.setText(_translate("MainWindow", "Create Directory"))
         self.actionExtract_Faces.setText(_translate("MainWindow", "Extract Faces from Images"))
-        self.actionLoad_Project.setText(_translate("MainWindow", "Load Project"))
+        self.actionLoad_Project.setText(_translate("MainWindow", "Import Data"))
         self.actionLoad_Project.setShortcut(_translate("MainWindow", "Ctrl+L"))
         self.actionLoad_Annotations.setText(_translate("MainWindow", "Load Annotations"))
         self.actionLoad_Image_Directory.setText(_translate("MainWindow", "Load Image Playlist"))
-        self.actionSave_Project.setText(_translate("MainWindow", "Save Project"))
+        self.actionSave_Project.setText(_translate("MainWindow", "Save Data"))
         self.actionSave_Project.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionCSV_2.setText(_translate("MainWindow", "CSV"))
         self.actionXLXV_2.setText(_translate("MainWindow", "XLXV"))
@@ -519,9 +520,10 @@ class Ui_MainWindow(object):
         self.actionClass_17.triggered.connect(self.class_17_img)
         self.actionExport_Annotations.triggered.connect(self.export_data)
         self.actionSave_Project.triggered.connect(self.export_data)
-        self.actionLoad_Project.triggered.connect(self.load_project)
+        self.actionLoad_Project.triggered.connect(self.load_signal_file)
         self.actionConfirm_Annotation_Area.triggered.connect(self.get_annotation_values)
         self.actionTime.triggered.connect(self.time_tool)
+        self.actionAbout.triggered.connect(self.helpsy)
 
 
 
@@ -1169,6 +1171,8 @@ class Ui_MainWindow(object):
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 	
         msg.exec_()
+    def helpsy(self):
+        webbrowser.open('https://github.com/chags1313/QualAI-Signal/wiki')
         
 
 
