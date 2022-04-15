@@ -2,12 +2,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox, QDialog
 from pyqtgraph import PlotWidget
 import pandas as pd
 import pyqtgraph as pg
 from PyQt5.QtGui import *
-import webbrowser
 
 class ChecklistDialog(QtGui.QDialog):
 
@@ -135,8 +134,12 @@ class Ui_MainWindow(object):
         self.menuSave.setObjectName("menuSave")
         self.menuLoad = QtWidgets.QMenu(self.menuMenu)
         self.menuLoad.setObjectName("menuLoad")
-        #self.menuHelp = QtWidgets.QMenu(self.menubar)
-        #self.menuHelp.setObjectName("menuHelp")
+        
+        #self.menuTools = QtWidgets.QMenu(self.menuMenu)
+        #self.menuTools.setObjectName("menuTools")
+        
+        self.menuHelp = QtWidgets.QMenu(self.menubar)
+        self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
         self.toolBar = QtWidgets.QToolBar(MainWindow)
         self.toolBar.setIconSize(QtCore.QSize(60, 60))
@@ -150,50 +153,8 @@ class Ui_MainWindow(object):
         self.actionPrevious = QtWidgets.QAction(MainWindow)
         self.actionPrevious.setObjectName("actionPrevious")
         self.actionPrev = QtWidgets.QAction(MainWindow)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../../hagen/.designer/backup/icons8-previous-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionPrev.setIcon(icon1)
-        self.actionPrev.setObjectName("actionPrev")
-        self.actionFace = QtWidgets.QAction(MainWindow)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../../hagen/.designer/backup/icons8-face-id-96 (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionFace.setIcon(icon2)
-        self.actionFace.setObjectName("actionFace")
-        self.actionGraph = QtWidgets.QAction(MainWindow)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("../../hagen/.designer/backup/icons8-graph-64.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionGraph.setIcon(icon3)
-        self.actionGraph.setObjectName("actionGraph")
-        self.actionDataframe = QtWidgets.QAction(MainWindow)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../../hagen/.designer/backup/icons8-data-sheet-96 (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionDataframe.setIcon(icon4)
-        self.actionDataframe.setObjectName("actionDataframe")
-        self.actionNext = QtWidgets.QAction(MainWindow)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../../hagen/.designer/backup/icons8-next-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionNext.setIcon(icon5)
-        self.actionNext.setObjectName("actionNext")
-        self.actionDeploy_Model = QtWidgets.QAction(MainWindow)
-        self.actionDeploy_Model.setObjectName("actionDeploy_Model")
-        self.actionCSV = QtWidgets.QAction(MainWindow)
-        self.actionCSV.setObjectName("actionCSV")
-        self.actionXLXV = QtWidgets.QAction(MainWindow)
-        self.actionXLXV.setObjectName("actionXLXV")
-        self.actionTSV = QtWidgets.QAction(MainWindow)
-        self.actionTSV.setObjectName("actionTSV")
-        self.actionTXT = QtWidgets.QAction(MainWindow)
-        self.actionTXT.setObjectName("actionTXT")
         self.actionAbout = QtWidgets.QAction(MainWindow)
         self.actionAbout.setObjectName("actionAbout")
-        self.actionLoad_Model = QtWidgets.QAction(MainWindow)
-        self.actionLoad_Model.setObjectName("actionLoad_Model")
-        self.actionDeploy_Model_2 = QtWidgets.QAction(MainWindow)
-        self.actionDeploy_Model_2.setObjectName("actionDeploy_Model_2")
-        self.actionCreate_Playlist = QtWidgets.QAction(MainWindow)
-        self.actionCreate_Playlist.setObjectName("actionCreate_Playlist")
-        self.actionExtract_Faces = QtWidgets.QAction(MainWindow)
-        self.actionExtract_Faces.setObjectName("actionExtract_Faces")
         self.actionLoad_Project = QtWidgets.QAction(MainWindow)
         self.actionLoad_Project.setObjectName("actionLoad_Project")
         self.actionLoad_Annotations = QtWidgets.QAction(MainWindow)
@@ -202,12 +163,6 @@ class Ui_MainWindow(object):
         self.actionLoad_Image_Directory.setObjectName("actionLoad_Image_Directory")
         self.actionSave_Project = QtWidgets.QAction(MainWindow)
         self.actionSave_Project.setObjectName("actionSave_Project")
-        self.actionCSV_2 = QtWidgets.QAction(MainWindow)
-        self.actionCSV_2.setObjectName("actionCSV_2")
-        self.actionXLXV_2 = QtWidgets.QAction(MainWindow)
-        self.actionXLXV_2.setObjectName("actionXLXV_2")
-        self.actionTSV_2 = QtWidgets.QAction(MainWindow)
-        self.actionTSV_2.setObjectName("actionTSV_2")
         self.actionSaveAnn = QtWidgets.QAction(MainWindow)
         self.actionSaveAnn.setObjectName("actionSaveAnn")
         self.actionHelp = QtWidgets.QAction(MainWindow)
@@ -361,28 +316,26 @@ class Ui_MainWindow(object):
         self.actionClass_15.setIcon(icon24)
         self.actionClass_15.setVisible(False)
         self.actionClass_15.setObjectName("actionClass_15")
-
-
         self.actionClass_16 = QtWidgets.QAction(MainWindow)
         self.actionClass_16.setIcon(icon12)
         self.actionClass_16.setVisible(False)
         self.actionClass_16.setObjectName("actionClass_16")
-        
         self.actionClass_17 = QtWidgets.QAction(MainWindow)
         self.actionClass_17.setIcon(icon13)
         self.actionClass_17.setVisible(False)
         self.actionClass_17.setObjectName("actionClass_17")
-        
-        
-        
         self.menuSave.addAction(self.actionSave_Project)
         self.menuLoad.addAction(self.actionLoad_Project)
+        
+        #self.menuTools.addAction(self.actionFeatures)
+        
+        #self.menuMenu.addAction(self.menuTools.menuAction())
         self.menuMenu.addAction(self.menuLoad.menuAction())
         self.menuMenu.addAction(self.menuSave.menuAction())
         self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionAbout)
         self.menubar.addAction(self.menuMenu.menuAction())
-        #self.menubar.addAction(self.menuHelp.menuAction())
+        self.menubar.addAction(self.menuHelp.menuAction())
         self.toolBar.addAction(self.actionLoad_Signal_Data)
         self.toolBar.addAction(self.actionExport_Annotations)
         self.toolBar.addSeparator()
@@ -418,45 +371,16 @@ class Ui_MainWindow(object):
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuSave.setTitle(_translate("MainWindow", "Save"))
         self.menuLoad.setTitle(_translate("MainWindow", "Load"))
-        #self.menuHelp.setTitle(_translate("MainWindow", "Help"))
+        #self.menuTools.setTitle(_translate("MainWindow", "Tools"))
+        self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.toolBar_2.setWindowTitle(_translate("MainWindow", "toolBar_2"))
-        self.actionPrevious.setText(_translate("MainWindow", "Previous"))
-        self.actionPrev.setText(_translate("MainWindow", "Previous"))
-        self.actionPrev.setToolTip(_translate("MainWindow", "Previous Image"))
-        self.actionPrev.setShortcut(_translate("MainWindow", "Left"))
-        self.actionFace.setText(_translate("MainWindow", "Analyze"))
-        self.actionFace.setToolTip(_translate("MainWindow", "Face Analysis: Action Units and Emotion Predictions"))
-        self.actionFace.setShortcut(_translate("MainWindow", "F"))
-        self.actionGraph.setText(_translate("MainWindow", "Graph"))
-        self.actionGraph.setToolTip(_translate("MainWindow", "Graph Annotation and Analysis Data"))
-        self.actionGraph.setShortcut(_translate("MainWindow", "G"))
-        self.actionDataframe.setText(_translate("MainWindow", "Dataframe"))
-        self.actionDataframe.setToolTip(_translate("MainWindow", "Dataframe of Annotation and Analysis"))
-        self.actionDataframe.setShortcut(_translate("MainWindow", "D"))
-        self.actionNext.setText(_translate("MainWindow", "Next"))
-        self.actionNext.setToolTip(_translate("MainWindow", "Next Image"))
-        self.actionNext.setShortcut(_translate("MainWindow", "Right"))
-        self.actionDeploy_Model.setText(_translate("MainWindow", "Deploy Model"))
-        self.actionCSV.setText(_translate("MainWindow", "CSV"))
-        self.actionXLXV.setText(_translate("MainWindow", "XLXV"))
-        self.actionTSV.setText(_translate("MainWindow", "TSV"))
-        self.actionTXT.setText(_translate("MainWindow", "TXT"))
-        self.actionAbout.setText(_translate("MainWindow", "Help"))
+        self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionAbout.setShortcut(_translate("MainWindow", "?"))
-        self.actionLoad_Model.setText(_translate("MainWindow", "Load Model"))
-        self.actionDeploy_Model_2.setText(_translate("MainWindow", "Deploy Model"))
-        self.actionCreate_Playlist.setText(_translate("MainWindow", "Create Directory"))
-        self.actionExtract_Faces.setText(_translate("MainWindow", "Extract Faces from Images"))
-        self.actionLoad_Project.setText(_translate("MainWindow", "Import Data"))
-        self.actionLoad_Project.setShortcut(_translate("MainWindow", "Ctrl+L"))
-        self.actionLoad_Annotations.setText(_translate("MainWindow", "Load Annotations"))
-        self.actionLoad_Image_Directory.setText(_translate("MainWindow", "Load Image Playlist"))
-        self.actionSave_Project.setText(_translate("MainWindow", "Save Data"))
+        self.actionLoad_Project.setText(_translate("MainWindow", "Load Project"))
+        #self.actionFeatures.setText(_translate("MainWindow", "Extract Features"))
+        self.actionSave_Project.setText(_translate("MainWindow", "Save Project"))
         self.actionSave_Project.setShortcut(_translate("MainWindow", "Ctrl+S"))
-        self.actionCSV_2.setText(_translate("MainWindow", "CSV"))
-        self.actionXLXV_2.setText(_translate("MainWindow", "XLXV"))
-        self.actionTSV_2.setText(_translate("MainWindow", "TSV"))
         self.actionSaveAnn.setText(_translate("MainWindow", "Annotations"))
         self.actionHelp.setText(_translate("MainWindow", "Help"))
         self.actionSave_Annotation.setText(_translate("MainWindow", "Save Annotations"))
@@ -520,10 +444,9 @@ class Ui_MainWindow(object):
         self.actionClass_17.triggered.connect(self.class_17_img)
         self.actionExport_Annotations.triggered.connect(self.export_data)
         self.actionSave_Project.triggered.connect(self.export_data)
-        self.actionLoad_Project.triggered.connect(self.load_signal_file)
+        self.actionLoad_Project.triggered.connect(self.load_project)
         self.actionConfirm_Annotation_Area.triggered.connect(self.get_annotation_values)
         self.actionTime.triggered.connect(self.time_tool)
-        self.actionAbout.triggered.connect(self.helpsy)
 
 
 
@@ -556,13 +479,12 @@ class Ui_MainWindow(object):
         if form.exec_() == QtGui.QDialog.Accepted:
             print(list(form.choices))
             for x,y in zip(form.choices,colors):
-                self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df[x], pen=y)
-        
-        #self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df.iloc[:,1], pen = "b")
-        #self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df.iloc[:,2], pen = "r")
-        #self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df.iloc[:,3], pen = 'g')
-        self.signal_df.insert(0, 'class', 0)
-        self.signal_df.insert(1, 'anno_key', "NAN")
+                self.signalWidget.addLegend()
+                self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df[x], pen=y, name= x)
+        if not "class" in self.signal_df:
+            self.signal_df.insert(0, 'class', 0)
+        if not "anno_key" in self.signal_df:
+            self.signal_df.insert(1, 'anno_key', "NAN")
         self.actionExport_Annotations.setEnabled(True)
         self.actionLoad_Signal_Data.setEnabled(False)
         self.actionClassKey.setEnabled(True)
@@ -768,6 +690,7 @@ class Ui_MainWindow(object):
             self.actionClass_15.setVisible(True)
             self.actionClass_16.setVisible(True)
             self.actionClass_17.setVisible(True)
+            
 
     def class_1_img(self):
         self.cur_class = 1
@@ -778,7 +701,7 @@ class Ui_MainWindow(object):
                 self.class1_txt = self.class1_txt
                 
                 self.actionClass_1.setText(self.class1_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
+                self.lr = pg.LinearRegionItem([self.inf_num, 10], brush = self.brush)  # This is a mouse-draggable window on the plot
                 self.lr.setBounds([0, len(self.signal_df.index.values)])
                 self.signalWidget.addItem(self.lr)
                 self.c1_cnt = self.c1_cnt + 1
@@ -1120,10 +1043,70 @@ class Ui_MainWindow(object):
         self.loaded_signal_file, _ = QFileDialog.getOpenFileName()
         print(self.loaded_signal_file)
         self.signal_df = pd.read_csv(self.loaded_signal_file)
-        self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df["Accelerometer X"], pen = "b")
-        self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df["Accelerometer Y"], pen = "r")
-        self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df["Accelerometer Z"], pen = 'g')
-        self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df["class"], pen = 'k', symbol = 'o')
+        self.signal_df['acc'] = (self.signal_df['Accelerometer X']**2 + self.signal_df['Accelerometer Y']**2 + self.signal_df['Accelerometer Z']**2)**(1/2)
+        self.signal_df['acc'] = self.signal_df['acc'].apply(abs)
+        leg = self.signalWidget.addLegend()
+        self.signalWidget.plot(x= self.signal_df.index.values, y=abs(self.signal_df["acc"]), pen = "k", name="Activity")
+        d = self.signal_df['class']
+        starts_bool = d.diff().ne(0)
+        starts = d.index[starts_bool]
+        ends = d.index[starts_bool.shift(-1, fill_value=True)]
+        result = (d.loc[starts].reset_index(drop=True))
+        result1 = pd.DataFrame(result)
+        result1 = result1.assign(Start=starts, End=ends).rename({0: 'Value'}, axis='columns')
+        result1 = result1[result1['class'] !=0]
+        result1 = result1[result1['class'] !=1]
+        class2c = 255, 102, 102, 100
+        class3c = 226, 230, 11, 100
+        class4c = 110, 11, 230, 100
+        class5c = 11, 211, 230, 100
+        class6c = 11, 230, 131, 100
+        class7c = 151, 147, 194, 100
+        count2 = 0
+        count3 = 0
+        count4 = 0
+        count5 = 0
+        count6 = 0
+        #colors = [class2c, class3c, class4c, class5c, class6c, class7c]
+        #values = range(len(result1))
+        for i in range(len(result1)):
+            mini = result1.iloc[i, 1]
+            maxi = result1.iloc[i, 2]
+            if result1.iloc[i, 0] == 2:
+                self.lin = pg.LinearRegionItem([mini, maxi], brush=class2c) 
+                if count2 <1:
+                    leg.addItem(item=self.lin, name="Reaching")
+                count2 = count2 + 1
+                print("reaching" + str(count2))
+            if result1.iloc[i, 0] == 3:
+                self.lin = pg.LinearRegionItem([mini, maxi], brush=class3c) 
+                if count3 <1:
+                    leg.addItem(item=self.lin, name="Lifting")
+                count3 = count3 + 1
+                print("lifting" + str(count3))
+            if result1.iloc[i, 0] == 4:
+                self.lin = pg.LinearRegionItem([mini, maxi], brush=class4c) 
+                if count4 <1:
+                    leg.addItem(item=self.lin, name="Push/Pull")
+                count4 = count4 + 1
+                print("push" + str(count4))
+            if result1.iloc[i, 0] == 5:
+                self.lin = pg.LinearRegionItem([mini, maxi], brush=class5c)
+                if count5 <1:
+                    leg.addItem(item=self.lin, name="Isostabilize")
+                count5 = count5 + 1
+                print("iso" + str(count5))
+            if result1.iloc[i, 0] == 6:
+                self.lin = pg.LinearRegionItem([mini, maxi], brush=class6c) 
+                if count6 <1:
+                    leg.addItem(item=self.lin, name="Desktop")
+                count6 = count6 + 1
+                print('desk' + str(count6))
+            #self.lin.setBounds([mini, maxi])
+            self.signalWidget.addItem(self.lin)
+            
+        
+
         self.actionExport_Annotations.setEnabled(True)
         self.actionLoad_Signal_Data.setEnabled(False)
         self.actionClassKey.setEnabled(True)
@@ -1161,8 +1144,11 @@ class Ui_MainWindow(object):
     def value(self):
         self.inf_num = self.time_l.value()
         print(self.inf_num)
-        self.time_num = self.signal_df.iloc[int(self.inf_num), 2]
-        print(self.time_num)
+        if "Timestamp" in self.signal_df:
+            self.time_num = self.signal_df.loc[int(self.inf_num), "Timestamp"]
+            print(self.time_num)
+        else:
+            self.time_num = self.signal_df.iloc[int(self.inf_num), 0]
         #self.time_l = pg.InfiniteLine(pos= self.inf_num, label= str(self.time_num))
         msg = QMessageBox()
         msg.setText("Timestamp: " + str(self.time_num))
@@ -1171,9 +1157,8 @@ class Ui_MainWindow(object):
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 	
         msg.exec_()
-    def helpsy(self):
-        webbrowser.open('https://github.com/chags1313/QualAI-Signal/wiki')
         
+
 
 
 if __name__ == "__main__":
