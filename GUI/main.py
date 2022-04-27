@@ -7,8 +7,9 @@ from pyqtgraph import PlotWidget
 import pandas as pd
 import pyqtgraph as pg
 from PyQt5.QtGui import *
+from PySide2.QtWidgets import QDialog
 
-class ChecklistDialog(QtGui.QDialog):
+class ChecklistDialog(QtWidgets.QDialog):
 
     def __init__(
         self,
@@ -23,7 +24,7 @@ class ChecklistDialog(QtGui.QDialog):
         self.name = name
         self.icon = icon
         self.model = QtGui.QStandardItemModel()
-        self.listView = QtGui.QListView()
+        self.listView = QtWidgets.QListView()
 
         for string in stringlist:
             item = QtGui.QStandardItem(string)
@@ -35,19 +36,19 @@ class ChecklistDialog(QtGui.QDialog):
 
         self.listView.setModel(self.model)
 
-        self.okButton = QtGui.QPushButton('OK')
-        self.cancelButton = QtGui.QPushButton('Cancel')
-        self.selectButton = QtGui.QPushButton('Select All')
-        self.unselectButton = QtGui.QPushButton('Unselect All')
+        self.okButton = QtWidgets.QPushButton('OK')
+        self.cancelButton = QtWidgets.QPushButton('Cancel')
+        self.selectButton = QtWidgets.QPushButton('Select All')
+        self.unselectButton = QtWidgets.QPushButton('Unselect All')
 
-        hbox = QtGui.QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addStretch(1)
         hbox.addWidget(self.okButton)
         hbox.addWidget(self.cancelButton)
         hbox.addWidget(self.selectButton)
         hbox.addWidget(self.unselectButton)
 
-        vbox = QtGui.QVBoxLayout(self)
+        vbox = QtWidgets.QVBoxLayout(self)
         vbox.addWidget(self.listView)
         vbox.addStretch(1)
         vbox.addLayout(hbox)
@@ -476,7 +477,7 @@ class Ui_MainWindow(object):
             self.signal_df = pd.read_csv(self.loaded_signal_file, header=rows)
         form = ChecklistDialog('Enter Columns to Plot', list(self.signal_df), checked=False)
         colors = ['b', 'r', 'g', 'c', 'm', 'y', 'k', 'w']
-        if form.exec_() == QtGui.QDialog.Accepted:
+        if form.exec_() == QtWidgets.QDialog.Accepted:
             print(list(form.choices))
             for x,y in zip(form.choices,colors):
                 self.signalWidget.addLegend()
@@ -701,7 +702,7 @@ class Ui_MainWindow(object):
                 self.class1_txt = self.class1_txt
                 
                 self.actionClass_1.setText(self.class1_txt)
-                self.lr = pg.LinearRegionItem([self.inf_num, 10], brush = self.brush)  # This is a mouse-draggable window on the plot
+                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
                 self.lr.setBounds([0, len(self.signal_df.index.values)])
                 self.signalWidget.addItem(self.lr)
                 self.c1_cnt = self.c1_cnt + 1
