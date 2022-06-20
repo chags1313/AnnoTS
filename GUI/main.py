@@ -1,13 +1,10 @@
-#Created by Cole Hagen intended for annotation of actigraph and feature data
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox, QDialog
+from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox, QDialog, QListView
 from pyqtgraph import PlotWidget
 import pandas as pd
 import pyqtgraph as pg
 from PyQt5.QtGui import *
-from PySide2.QtWidgets import QDialog
 
 class ChecklistDialog(QtWidgets.QDialog):
 
@@ -124,7 +121,6 @@ class Ui_MainWindow(object):
         self.signalWidget = PlotWidget(self.centralwidget)
         self.signalWidget.setGeometry(QtCore.QRect(10, 10, 1561, 831))
         self.signalWidget.setObjectName("signalWidget")
-        #self.signalWidget.addLegend()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1706, 26))
@@ -135,9 +131,7 @@ class Ui_MainWindow(object):
         self.menuSave.setObjectName("menuSave")
         self.menuLoad = QtWidgets.QMenu(self.menuMenu)
         self.menuLoad.setObjectName("menuLoad")
-        
-        #self.menuTools = QtWidgets.QMenu(self.menuMenu)
-        #self.menuTools.setObjectName("menuTools")
+    
         
         self.menuHelp = QtWidgets.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -449,8 +443,6 @@ class Ui_MainWindow(object):
         self.actionConfirm_Annotation_Area.triggered.connect(self.get_annotation_values)
         self.actionTime.triggered.connect(self.time_tool)
 
-
-
         self.c1_cnt = 0
         self.c2_cnt = 0
         self.c3_cnt = 0
@@ -494,9 +486,6 @@ class Ui_MainWindow(object):
         self.actionConfirm_Annotation_Area.setVisible(True)
         self.actionTime.setVisible(True)
         
-        
-
-        
     def get_annotation_values(self):
         self.lr_region = list(self.lr.getRegion())
         self.lr_region_max = int(max(self.lr_region)) 
@@ -504,15 +493,7 @@ class Ui_MainWindow(object):
         self.lr_range = range(self.lr_region_min, self.lr_region_max)
         self.signal_df.loc[self.lr_range, 'class'] = self.cur_class 
         self.signal_df.loc[self.lr_range, 'anno_key'] = self.cur_txt
-        print(self.signal_df)
-        #self.txt_itm = pg.TextItem(self.cur_txt, color='k', anchor=(self.lr_region_min,-10))
-        #self.signalWidget.addItem(self.txt_itm)
-        #self.lr.setMovable(False)
-        #self.lr.sigRegionChanged.connect(self.change_data)
-        #self.lr.sigRegionChangeFinished.connect(self.replace_data)
         self.lr.setMovable(False)
-
-
 
     def create_key(self):
         anns,ok = QInputDialog.getInt(MainWindow,"Number of Classifications","Enter Number of Classifications", min =1, max=17)
@@ -520,6 +501,7 @@ class Ui_MainWindow(object):
             self.class_num = anns
             self.set_vis_classes()
         self.actionClassKey.setEnabled(False)
+        
     def set_vis_classes(self):
         if self.class_num == 1:
             self.actionClass_1.setVisible(True)
@@ -692,350 +674,212 @@ class Ui_MainWindow(object):
             self.actionClass_16.setVisible(True)
             self.actionClass_17.setVisible(True)
             
+    def classes_args(self, cur_class, brush):
+        self.cur_class = cur_class
+        self.brush = brush
+        
+    def create_linear_region(self, actionClass, class_text):
+        actionClass.setText(class_text)
+        self.lr = pg.LinearRegionItem([0, 2000], brush = self.brush)  # This is a mouse-draggable window on the plot
+        self.lr.setBounds([0, len(self.signal_df.index.values)])
+        self.signalWidget.addItem(self.lr)
+        
 
     def class_1_img(self):
-        self.cur_class = 1
-        self.brush = 255, 102, 102, 100
+        self.classes_args(cur_class = 1, brush = (255, 102, 102, 100))
         if self.c1_cnt == 0:
             self.class1_txt,ok = QInputDialog.getText(MainWindow,"Class 1","Enter Class Name")
             if ok:
-                self.class1_txt = self.class1_txt
-                
-                self.actionClass_1.setText(self.class1_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_1, class_text = self.class1_txt)
                 self.c1_cnt = self.c1_cnt + 1
                 self.cur_txt = self.class1_txt
-                
-        elif self.c1_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class1_txt
-        
-        
-        
+        else:
+            self.create_linear_region(actionClass = self.actionClass_1, class_text = self.class1_txt)
+    
     def class_2_img(self):
-        self.cur_class = 2
-        self.brush = 226, 230, 11, 100
+        self.classes_args(cur_class = 2, brush = (226, 230, 11, 100))
         if self.c2_cnt == 0:
             self.class2_txt,ok = QInputDialog.getText(MainWindow,"Class 2","Enter Class Name")
             if ok:
-                self.class2_txt = self.class2_txt
-                
-                self.actionClass_2.setText(self.class2_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_2, class_text = self.class2_txt)
                 self.c2_cnt = self.c2_cnt + 1
                 self.cur_txt = self.class2_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_2, class_text = self.class2_txt)
                 
-        elif self.c2_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class2_txt
     def class_3_img(self):
-        self.cur_class = 3
-        self.brush = 110, 11, 230, 100
+        self.classes_args(cur_class = 3, brush = (11, 211, 230, 100))
         if self.c3_cnt == 0:
             self.class3_txt,ok = QInputDialog.getText(MainWindow,"Class 3","Enter Class Name")
             if ok:
                 self.class3_txt = self.class3_txt
-                
-                self.actionClass_3.setText(self.class3_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_3, class_text = self.class3_txt)
                 self.c3_cnt = self.c3_cnt + 1
                 self.cur_txt = self.class3_txt
-                
-        elif self.c3_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class3_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_3, class_text = self.class3_txt)
+    
     def class_4_img(self):
-        self.cur_class = 4
-        self.brush = 11, 211, 230, 100
+        self.classes_args(cur_class = 4, brush = (11, 211, 230, 100))
         if self.c4_cnt == 0:
             self.class4_txt,ok = QInputDialog.getText(MainWindow,"Class 4","Enter Class Name")
             if ok:
                 self.class4_txt = self.class4_txt
-                
-                self.actionClass_4.setText(self.class4_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_4, class_text = self.class4_txt)
                 self.c4_cnt = self.c4_cnt + 1
                 self.cur_txt = self.class4_txt
-                
-        elif self.c4_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class4_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_4, class_text = self.class4_txt)
+    
     def class_5_img(self):
-        self.cur_class = 5
-        self.brush = 11, 230, 131, 100
+        self.classes_args(cur_class = 5, brush = (11, 230, 131, 100))
         if self.c5_cnt == 0:
             self.class5_txt,ok = QInputDialog.getText(MainWindow,"Class 5","Enter Class Name")
             if ok:
                 self.class5_txt = self.class5_txt
-                
-                self.actionClass_5.setText(self.class5_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_5, class_text = self.class5_txt)
                 self.c5_cnt = self.c5_cnt + 1
                 self.cur_txt = self.class5_txt
-                
-        elif self.c5_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class5_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_5, class_text = self.class5_txt)
+    
     def class_6_img(self):
-        self.cur_class = 6
-        self.brush = 128, 51, 74, 100
+        self.classes_args(cur_class = 6, brush = (128, 51, 74, 100))
         if self.c6_cnt == 0:
             self.class6_txt,ok = QInputDialog.getText(MainWindow,"Class 6","Enter Class Name")
             if ok:
                 self.class6_txt = self.class6_txt
-                
-                self.actionClass_6.setText(self.class6_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_6, class_text = self.class6_txt)
                 self.c6_cnt = self.c6_cnt + 1
                 self.cur_txt = self.class6_txt
-                
-        elif self.c6_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class6_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_6, class_text = self.class6_txt)
+    
     def class_7_img(self):
-        self.cur_class = 7
-        self.brush = 51, 128,92, 100
+        self.classes_args(cur_class = 7, brush = (51, 128,92, 100))
         if self.c7_cnt == 0:
             self.class7_txt,ok = QInputDialog.getText(MainWindow,"Class 7","Enter Class Name")
             if ok:
                 self.class7_txt = self.class7_txt
-                
-                self.actionClass_7.setText(self.class7_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_7, class_text = self.class7_txt)
                 self.c7_cnt = self.c7_cnt + 1
                 self.cur_txt = self.class7_txt
-                
-        elif self.c7_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class7_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_7, class_text = self.class7_txt)
+    
     def class_8_img(self):
-        self.cur_class = 8
-        self.brush = 217, 163,207, 100
+        self.classes_args(cur_class = 8, brush = (217, 163,207, 100))
         if self.c8_cnt == 0:
             self.class8_txt,ok = QInputDialog.getText(MainWindow,"Class 8","Enter Class Name")
             if ok:
                 self.class8_txt = self.class8_txt
-                
-                self.actionClass_8.setText(self.class8_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_8, class_text = self.class8_txt)
                 self.c8_cnt = self.c8_cnt + 1
                 self.cur_txt = self.class8_txt
-                
-        elif self.c8_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class8_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_8, class_text = self.class8_txt)
+    
     def class_9_img(self):
-        self.cur_class = 9
-        self.brush = 191, 204, 94, 100
+        self.classes_args(cur_class = 9, brush = (191, 204, 94, 100))
         if self.c9_cnt == 0:
             self.class9_txt,ok = QInputDialog.getText(MainWindow,"Class 9","Enter Class Name")
             if ok:
                 self.class9_txt = self.class9_txt
-                
-                self.actionClass_9.setText(self.class9_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_9, class_text = self.class9_txt)
                 self.c9_cnt = self.c9_cnt + 1
                 self.cur_txt = self.class9_txt
-                
-        elif self.c9_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class9_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_9, class_text = self.class9_txt)
+    
     def class_10_img(self):
-        self.cur_class = 10
-        self.brush = 188, 195, 204, 100
+        self.classes_args(cur_class = 10, brush = (188, 195, 204, 100))
         if self.c10_cnt == 0:
             self.class10_txt,ok = QInputDialog.getText(MainWindow,"Class 10","Enter Class Name")
             if ok:
                 self.class10_txt = self.class10_txt
-                
-                self.actionClass_10.setText(self.class10_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_10, class_text = self.class10_txt)
                 self.c10_cnt = self.c10_cnt + 1
                 self.cur_txt = self.class10_txt
-                
-        elif self.c10_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class10_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_10, class_text = self.class10_txt)
+    
     def class_11_img(self):
-        self.cur_class = 11
-        self.brush = 245, 59, 255, 100
+        self.classes_args(cur_class = 11, brush = (245, 59, 255, 100))
         if self.c11_cnt == 0:
             self.class11_txt,ok = QInputDialog.getText(MainWindow,"Class 11","Enter Class Name")
             if ok:
                 self.class11_txt = self.class11_txt
-                
-                self.actionClass_11.setText(self.class11_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_11, class_text = self.class11_txt)
                 self.c11_cnt = self.c11_cnt + 1
                 self.cur_txt = self.class11_txt
-                
-        elif self.c11_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class11_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_11, class_text = self.class11_txt)
+    
     def class_12_img(self):
-        self.cur_class = 12
-        self.brush = 151, 147, 194, 100
+        self.classes_args(cur_class = 12, brush = (151, 147, 194, 100))
         if self.c12_cnt == 0:
             self.class12_txt,ok = QInputDialog.getText(MainWindow,"Class 12","Enter Class Name")
             if ok:
-                self.class12_txt = self.class12_txt
-                
-                self.actionClass_12.setText(self.class12_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_12, class_text = self.class12_txt)
                 self.c12_cnt = self.c12_cnt + 1
                 self.cur_txt = self.class12_txt
-                
-        elif self.c12_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class12_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_12, class_text = self.class12_txt)
+    
     def class_13_img(self):
-        self.cur_class = 13
-        self.brush = 0, 255, 34, 100
+        self.classes_args(cur_class = 13, brush = (0, 255, 34, 100))
         if self.c13_cnt == 0:
             self.class13_txt,ok = QInputDialog.getText(MainWindow,"Class 13","Enter Class Name")
             if ok:
-                self.class13_txt = self.class13_txt
-                
-                self.actionClass_13.setText(self.class13_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_13, class_text = self.class13_txt)
                 self.c13_cnt = self.c13_cnt + 1
                 self.cur_txt = self.class13_txt
-                
-        elif self.c13_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class13_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_13, class_text = self.class13_txt)
+    
     def class_14_img(self):
-        self.cur_class = 14
-        self.brush = 255, 234, 71, 100
+        self.classes_args(cur_class = 14, brush = (255, 234, 71, 100))
         if self.c14_cnt == 0:
             self.class14_txt,ok = QInputDialog.getText(MainWindow,"Class 14","Enter Class Name")
             if ok:
-                self.class14_txt = self.class14_txt
-                
-                self.actionClass_14.setText(self.class14_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_14, class_text = self.class14_txt)
                 self.c14_cnt = self.c14_cnt + 1
                 self.cur_txt = self.class14_txt
-                
-        elif self.c14_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class14_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_14, class_text = self.class14_txt)
+    
     def class_15_img(self):
-        self.cur_class = 15
-        self.brush = 148, 53, 118, 100
+        self.classes_args(cur_class = 15, brush = (148, 53, 118, 100))
         if self.c15_cnt == 0:
             self.class15_txt,ok = QInputDialog.getText(MainWindow,"Class 15","Enter Class Name")
             if ok:
-                self.class15_txt = self.class15_txt
-                
-                self.actionClass_15.setText(self.class15_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_15, class_text = self.class15_txt)
                 self.c15_cnt = self.c15_cnt + 1
                 self.cur_txt = self.class15_txt
-                
-        elif self.c15_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class15_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_15, class_text = self.class15_txt)
+   
     def class_16_img(self):
-        self.cur_class = 16
-        self.brush = 226, 230, 11, 100
+        self.classes_args(cur_class = 16, brush = (226, 230, 11, 100))
         if self.c16_cnt == 0:
             self.class16_txt,ok = QInputDialog.getText(MainWindow,"Class 16","Enter Class Name")
             if ok:
-                self.class16_txt = self.class16_txt
-                
-                self.actionClass_16.setText(self.class16_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_16, class_text = self.class16_txt)
                 self.c16_cnt = self.c16_cnt + 1
                 self.cur_txt = self.class16_txt
-                
-        elif self.c16_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class16_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_16, class_text = self.class16_txt)
+    
     def class_17_img(self):
-        self.cur_class = 17
-        self.brush = 110, 11, 230, 100
+        self.classes_args(cur_class = 17, brush = (110, 11, 230, 100))
         if self.c17_cnt == 0:
             self.class17_txt,ok = QInputDialog.getText(MainWindow,"Class 17","Enter Class Name")
             if ok:
-                self.class17_txt = self.class17_txt
-                
-                self.actionClass_17.setText(self.class17_txt)
-                self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)],brush = self.brush)  # This is a mouse-draggable window on the plot
-                self.lr.setBounds([0, len(self.signal_df.index.values)])
-                self.signalWidget.addItem(self.lr)
+                self.create_linear_region(actionClass = self.actionClass_17, class_text = self.class17_txt)
                 self.c17_cnt = self.c17_cnt + 1
                 self.cur_txt = self.class17_txt
-                
-        elif self.c17_cnt > 0:
-            self.lr = pg.LinearRegionItem([0, len(self.signal_df.index.values)], brush = self.brush)  # This is a mouse-draggable window on the plot
-            self.lr.setBounds([0, len(self.signal_df.index.values)])
-            self.signalWidget.addItem(self.lr)
-            self.cur_txt = self.class17_txt
+        else:
+            self.create_linear_region(actionClass = self.actionClass_17, class_text = self.class17_txt)
 
     def export_data(self):
         self.saved_annotations, _ = QFileDialog.getSaveFileName()
@@ -1115,31 +959,13 @@ class Ui_MainWindow(object):
         self.actionConfirm_Annotation_Area.setEnabled(True)
         self.actionConfirm_Annotation_Area.setVisible(True)
         self.actionTime.setVisible(True)
-    def change_data(self):
-        self.signal_df.loc[self.lr_range, 'class'] = 0
-        self.signal_df.loc[self.lr_range, 'anno_key'] = "NaN"
-        self.lr_region = list(self.lr.getRegion())
-        self.lr_region_max = int(max(self.lr_region)) 
-        self.lr_region_min = int(min(self.lr_region))
-        self.lr_range = range(self.lr_region_min, self.lr_region_max)
 
-        print(self.signal_df)
-    def replace_data(self):
-        self.lr_region = list(self.lr.getRegion())
-        self.lr_region_max = int(max(self.lr_region)) 
-        self.lr_region_min = int(min(self.lr_region))
-        self.lr_range = range(self.lr_region_min, self.lr_region_max)
-        self.signal_df.loc[self.lr_range, 'class'] = self.cur_class
-        self.signal_df.loc[self.lr_range, 'anno_key'] = self.cur_txt
-        print(self.signal_df)
-        self.lr.setMovable(False)
 
     def time_tool(self):
         self.time_l = pg.InfiniteLine(pos=0, pen = 'k', markers = '>|<')
+        self.time_l.addMarker(marker = 'o', size = 25)
         self.signalWidget.addItem(self.time_l)
         self.time_l.setMovable(True)
-
-        #self.pos = self.signal_df.iloc(self.inf_num, 2)
         self.time_l.sigPositionChangeFinished.connect(self.value)
         self.actionTime.setVisible(False)
     def value(self):
@@ -1150,40 +976,20 @@ class Ui_MainWindow(object):
             print(self.time_num)
         else:
             self.time_num = self.signal_df.iloc[int(self.inf_num), 0]
-        #self.time_l = pg.InfiniteLine(pos= self.inf_num, label= str(self.time_num))
         msg = QMessageBox()
         msg.setText("Timestamp: " + str(self.time_num))
         msg.setWindowTitle("Time Tool")
         msg.setDetailedText(str(self.signal_df.iloc[int(self.inf_num), :]))
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-	
         msg.exec_()
         
-
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    # Fusion dark palette from https://gist.github.com/QuantumCD/6245215.
     palette = QPalette()
-    """palette.setColor(QPalette.Window, QColor(53, 53, 53))
-    palette.setColor(QPalette.WindowText, Qt.white)
-    palette.setColor(QPalette.Base, QColor(25, 25, 25))
-    palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-    palette.setColor(QPalette.ToolTipBase, Qt.white)
-    palette.setColor(QPalette.ToolTipText, Qt.white)
-    palette.setColor(QPalette.Text, Qt.white)
-    palette.setColor(QPalette.Button, QColor(53, 53, 53))
-    palette.setColor(QPalette.ButtonText, Qt.white)
-    palette.setColor(QPalette.BrightText, Qt.red)
-    palette.setColor(QPalette.Link, QColor(42, 130, 218))
-    palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-    palette.setColor(QPalette.HighlightedText, Qt.black)
-    app.setPalette(palette)
-    app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")"""
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
