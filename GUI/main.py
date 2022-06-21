@@ -1,15 +1,3 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox, QDialog, QListView
-from pyqtgraph import PlotWidget
-import pandas as pd
-import pyqtgraph as pg
-from PyQt5.QtGui import *
-
-class ChecklistDialog(QtWidgets.QDialog):
-
-    def __init__(
-        self,from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication,QWidget, QVBoxLayout, QPushButton, QFileDialog , QLabel, QTextEdit, QInputDialog, QMessageBox, QDialog, QListView
 from pyqtgraph import PlotWidget
