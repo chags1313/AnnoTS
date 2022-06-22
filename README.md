@@ -2,7 +2,7 @@
 ## A Signal Annotation Application
 
 ## Stand alone file 
-[Download Link for .exe application](https://drive.google.com/file/d/1aTauKdt8ZpZdTQ64lFvTfAmFdtbXA9St/view?usp=sharing)
+[Download Link for .exe application](https://drive.google.com/file/d/1qGM6XhboWKBy236scnjpAWY1NHO6cM8b/view?usp=sharing)
 
 # Background
 ## QualAI-Signal is a graphical user interface designed for annotation of wearable sensor data
