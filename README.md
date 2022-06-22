@@ -11,6 +11,7 @@
 `pip install -r requirements.txt`
 
 # Usage
+Open command prompt or anaconda prompt
 - `cd /GUI`
 - `python run main.py`
 
