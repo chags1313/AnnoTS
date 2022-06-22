@@ -5,12 +5,13 @@
 [Download Link for .exe application](https://drive.google.com/file/d/1qGM6XhboWKBy236scnjpAWY1NHO6cM8b/view?usp=sharing)
 
 # Background
-## QualAI-Signal is a graphical user interface designed for annotation of wearable sensor data
+## QualAI-Signal is a graphical user interface designed for annotation of time series data
 
 # Installation
 `pip install -r requirements.txt`
 
 # Usage
+`cd /GUI`
 `python run main.py`
 
 # Help
