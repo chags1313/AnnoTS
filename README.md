@@ -11,8 +11,8 @@
 `pip install -r requirements.txt`
 
 # Usage
-`cd /GUI`
-`python run main.py`
+- `cd /GUI`
+- `python run main.py`
 
 # Help
 ## View wiki page 'https://github.com/chags1313/QualAI-Signal/wiki'
