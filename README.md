@@ -8,12 +8,14 @@
 ## QualAI-Signal is a graphical user interface designed for annotation of time series data
 
 # Installation
-`pip install -r requirements.txt`
+- Download the repository
+- Open command prompt or anaconda prompt
+- `pip install -r requirements.txt`
 
 # Usage
-Open command prompt or anaconda prompt
+- Open command prompt or anaconda prompt
 - `cd /GUI`
 - `python run main.py`
 
 # Help
-## View wiki page 'https://github.com/chags1313/QualAI-Signal/wiki'
+- View wiki page 'https://github.com/chags1313/QualAI-Signal/wiki'
