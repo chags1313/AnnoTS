@@ -14,7 +14,7 @@
 
 # Usage
 - Open command prompt or anaconda prompt
-- `cd /GUI`
+- `cd ./GUI`
 - `python run main.py`
 
 # Help
