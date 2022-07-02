@@ -5,7 +5,7 @@ A Signal Annotation Application
 [Download Link for .exe application](https://drive.google.com/file/d/1qGM6XhboWKBy236scnjpAWY1NHO6cM8b/view?usp=sharing)
 
 # Background
-## QualAI-Signal is a graphical user interface designed for annotation of time series data
+QualAI-Signal is a graphical user interface designed for annotation of time series data
 
 # Installation
 - Download the repository
