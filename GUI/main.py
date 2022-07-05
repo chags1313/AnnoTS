@@ -8,6 +8,10 @@ from PyQt5.QtGui import *
 import random
 import webbrowser
 
+"""
+Check list dialog windoww
+"""
+
 class ChecklistDialog(QtWidgets.QDialog):
 
     def __init__(
@@ -77,6 +81,10 @@ class ChecklistDialog(QtWidgets.QDialog):
         for i in range(self.model.rowCount()):
             item = self.model.item(i)
             item.setCheckState(QtCore.Qt.Unchecked)
+            
+"""
+Template for user interface
+"""
 
 
 class Ui_MainWindow(object):
@@ -326,8 +334,6 @@ class Ui_MainWindow(object):
         self.actionClass_17.setObjectName("actionClass_17")
         self.menuSave.addAction(self.actionSave_Project)
         self.menuLoad.addAction(self.actionLoad_Project)
-        #self.menuTools.addAction(self.actionFeatures)
-        #self.menuMenu.addAction(self.menuTools.menuAction())
         self.menuMenu.addAction(self.menuLoad.menuAction())
         self.menuMenu.addAction(self.menuSave.menuAction())
         self.menuMenu.addSeparator()
@@ -370,14 +376,12 @@ class Ui_MainWindow(object):
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuSave.setTitle(_translate("MainWindow", "Save"))
         self.menuLoad.setTitle(_translate("MainWindow", "Load"))
-        #self.menuTools.setTitle(_translate("MainWindow", "Tools"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.toolBar_2.setWindowTitle(_translate("MainWindow", "toolBar_2"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionAbout.setShortcut(_translate("MainWindow", "?"))
         self.actionLoad_Project.setText(_translate("MainWindow", "Load Project"))
-        #self.actionFeatures.setText(_translate("MainWindow", "Extract Features"))
         self.actionSave_Project.setText(_translate("MainWindow", "Save Project"))
         self.actionSave_Project.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionSaveAnn.setText(_translate("MainWindow", "Annotations"))
@@ -470,11 +474,13 @@ class Ui_MainWindow(object):
         self.c15_cnt = 0
         self.c16_cnt = 0
         self.c17_cnt = 0
-    ######################
-    #functions for interacting with the gui
-    ######################
-    #loading file and plotting data
+        
+"""
+GUI functions
+"""
+    
     def load_signal_file(self):
+        #loading file and plotting data
         self.loaded_signal_file, _ = QFileDialog.getOpenFileName()
         print(self.loaded_signal_file)
         rows,ok = QInputDialog.getInt(MainWindow,"Header Rows","Enter Number of Header Rows (raw actigraph has 10)", min =0, max=15)
@@ -499,8 +505,9 @@ class Ui_MainWindow(object):
         self.actionConfirm_Annotation_Area.setVisible(True)
         self.actionTime.setVisible(True)
         self.actionErase.setVisible(True)
-    #confirming annotation area for specified class, locking the annotation into place
+    
     def get_annotation_values(self):
+        #confirming annotation area for specified class, locking the annotation into place
         self.lr_region = list(self.lr.getRegion())
         self.lr_region_max = int(max(self.lr_region)) 
         self.lr_region_min = int(min(self.lr_region))
@@ -508,15 +515,17 @@ class Ui_MainWindow(object):
         self.signal_df.loc[self.lr_range, 'class'] = self.cur_class 
         self.signal_df.loc[self.lr_range, 'anno_key'] = self.cur_txt
         self.lr.setMovable(False)
-    #getting number of classifications through input dialog
+    
     def create_key(self):
+        #getting number of classifications through input dialog
         anns,ok = QInputDialog.getInt(MainWindow,"Number of Classifications","Enter Number of Classifications", min =1, max=17)
         if ok:
             self.class_num = anns
             self.set_vis_classes()
         self.actionClassKey.setEnabled(False)
-    #setting precreated class buttons as visible depending on the number of classifications  
+    
     def set_vis_classes(self):
+        #setting precreated class buttons as visible depending on the number of classifications  
         if self.class_num == 1:
             self.actionClass_1.setVisible(True)
         if self.class_num == 2:
@@ -687,12 +696,14 @@ class Ui_MainWindow(object):
             self.actionClass_15.setVisible(True)
             self.actionClass_16.setVisible(True)
             self.actionClass_17.setVisible(True)
-    #function to input number of classes and brush color for annotation plot       
+          
     def classes_args(self, cur_class, brush):
+        #function to input number of classes and brush color for annotation plot 
         self.cur_class = cur_class
         self.brush = brush
-    #setting linear region for annotations on the plot over a specified range   
+ 
     def create_linear_region(self, actionClass, class_text):
+        #setting linear region for annotations on the plot over a specified range  
         actionClass.setText(class_text)
         self.min_bound,ok = QInputDialog.getText(MainWindow,"Set Minimum Bound of Annotation","Left side of Annotation Boundry - this can be modified")
         self.max_bound,ok = QInputDialog.getText(MainWindow,"Set Maximum Bound of Annotation","Right side of Annotation Boundry - this can be modified")
@@ -701,7 +712,9 @@ class Ui_MainWindow(object):
             self.lr.setBounds([0, len(self.signal_df.index.values)])
             self.signalWidget.addItem(self.lr)
         
-
+"""
+Hard coded annotations
+"""
     def class_1_img(self):
         self.classes_args(cur_class = 1, brush = (255, 102, 102, 100))
         if self.c1_cnt == 0:
@@ -899,10 +912,12 @@ class Ui_MainWindow(object):
             self.create_linear_region(actionClass = self.actionClass_17, class_text = self.class17_txt)
 
     def export_data(self):
+        #export data as csv
         self.saved_annotations, _ = QFileDialog.getSaveFileName()
         self.signal_df.to_csv(self.saved_annotations + ".csv")
         
     def load_project(self):
+        #load previous project
         self.loaded_signal_file, _ = QFileDialog.getOpenFileName()
         print(self.loaded_signal_file)
         self.signal_df = pd.read_csv(self.loaded_signal_file)
@@ -913,7 +928,6 @@ class Ui_MainWindow(object):
             for x,y in zip(form.choices,colors):
                 self.signalWidget.addLegend()
                 self.signalWidget.plot(x= self.signal_df.index.values, y=self.signal_df[x], pen=y, name= x)
-
         d = self.signal_df['class']
         starts_bool = d.diff().ne(0)
         starts = d.index[starts_bool]
@@ -922,7 +936,6 @@ class Ui_MainWindow(object):
         result1 = pd.DataFrame(result)
         result1 = result1.assign(Start=starts, End=ends).rename({0: 'Value'}, axis='columns')
         result1 = result1[result1['class'] !=0]
-
         for i in range(len(result1)):
             mini = result1.iloc[i, 1]
             maxi = result1.iloc[i, 2]
@@ -930,9 +943,6 @@ class Ui_MainWindow(object):
                 if result1.iloc[i, 0] == activities:
                     self.lin = pg.LinearRegionItem([mini, maxi],  brush = (random.choices(range(256), k=4)))
             self.signalWidget.addItem(self.lin)
-            
-        
-
         self.actionExport_Annotations.setEnabled(True)
         self.actionLoad_Signal_Data.setEnabled(False)
         self.actionClassKey.setEnabled(True)
@@ -943,16 +953,19 @@ class Ui_MainWindow(object):
         self.actionErase.setVisible(True)
         
     def erase_tool(self):
-        self.lr = pg.LinearRegionItem([0, 2000], brush = (2,2,2,50))  # This is a mouse-draggable window on the plot
+        #Overwrite incorrect annotation with zeros
+        self.lr = pg.LinearRegionItem([0, 2000], brush = (2,2,2,50))  
         self.lr.setBounds([0, len(self.signal_df.index.values)])
         self.signalWidget.addItem(self.lr)
         self.cur_class = 0 
         self.cur_txt = "NAN"
         
     def about_web(self):
+        #open github wiki page for information
         webbrowser.open('https://github.com/chags1313/QualAI-Signal')
         
     def time_tool(self):
+        #moveable cursor to identify datapoints at specific index
         self.time_l = pg.InfiniteLine(pos=0, pen = 'k', markers = '>|<')
         self.time_l.addMarker(marker = 'o', size = 25)
         self.signalWidget.addItem(self.time_l)
@@ -961,6 +974,7 @@ class Ui_MainWindow(object):
         self.actionTime.setVisible(False)
         
     def value(self):
+        #report values at specific timepoint
         self.inf_num = self.time_l.value()
         print(self.inf_num)
         if "Timestamp" in self.signal_df:
