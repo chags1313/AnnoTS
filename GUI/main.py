@@ -983,7 +983,7 @@ Hard coded annotations
         else:
             self.time_num = self.signal_df.iloc[int(self.inf_num), 0]
         msg = QMessageBox()
-        msg.setText("Timestamp: " + str(self.time_num))
+        msg.setText("Data: " + str(self.time_num))
         msg.setWindowTitle("Time Tool")
         msg.setDetailedText(str(self.signal_df.iloc[int(self.inf_num), :]))
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
