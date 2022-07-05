@@ -18,4 +18,4 @@ A Signal Annotation Application for Time Series Data
 - `python run main.py`
 
 # Help
-- View wiki page 'https://github.com/chags1313/QualAI-Signal/wiki'
+- View wiki page 'https://github.com/chags1313/AnnoTS/wiki'
