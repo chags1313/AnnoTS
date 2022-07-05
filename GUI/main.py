@@ -372,7 +372,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "QualAI-Signal"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "AnnoTS"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuSave.setTitle(_translate("MainWindow", "Save"))
         self.menuLoad.setTitle(_translate("MainWindow", "Load"))
@@ -962,7 +962,7 @@ Hard coded annotations
         
     def about_web(self):
         #open github wiki page for information
-        webbrowser.open('https://github.com/chags1313/QualAI-Signal')
+        webbrowser.open('https://github.com/chags1313/AnnoTS')
         
     def time_tool(self):
         #moveable cursor to identify datapoints at specific index
