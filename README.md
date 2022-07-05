@@ -1,5 +1,5 @@
 # AnnoTS
-A Signal Annotation Application
+A Signal Annotation Application for Time Series Data
 
 ## Stand alone file 
 [Download Link for .exe application](https://drive.google.com/file/d/1qGM6XhboWKBy236scnjpAWY1NHO6cM8b/view?usp=sharing)
