@@ -15,7 +15,7 @@ A Signal Annotation Application for Time Series Data
 # Usage
 - Open command prompt or anaconda prompt
 - `cd ./GUI`
-- `python run main.py`
+- `python main.py`
 
 # Help
 - View wiki page 'https://github.com/chags1313/AnnoTS/wiki'
