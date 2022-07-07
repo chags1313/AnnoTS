@@ -475,9 +475,9 @@ class Ui_MainWindow(object):
         self.c16_cnt = 0
         self.c17_cnt = 0
         
-"""
-GUI functions
-"""
+
+    #GUI functions
+
     
     def load_signal_file(self):
         #loading file and plotting data
