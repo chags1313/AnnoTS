@@ -7,14 +7,14 @@ A Signal Annotation Application for Time Series Data
 # Background
 `AnnoTS` is a graphical user interface designed for annotation of time series data
 
+# Downloading Repo
+- Click 'Code'
+- Click 'Download Zip'
+
 # Installation
 - Download the repository
 - Open command prompt or anaconda prompt
 - `pip install -r requirements.txt`
-
-# Downloading Repo
-- Click 'Code'
-- Click 'Download Zip'
 
 # Usage
 - Open command prompt or anaconda prompt
