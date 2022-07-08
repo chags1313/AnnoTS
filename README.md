@@ -15,7 +15,7 @@ A Signal Annotation Application for Time Series Data
 # Downloading Repo
 - Click 'Code'
 - Click 'Download Zip'
-- [![Download Tutorial]](https://www.loom.com/share/a46e840a0cb64387a5dd69db59c51a86))
+- <video src='[video1.mov](https://www.loom.com/share/a46e840a0cb64387a5dd69db59c51a86)' width=180/>
 
 
 
