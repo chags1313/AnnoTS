@@ -15,9 +15,6 @@ A Signal Annotation Application for Time Series Data
 # Downloading Repo
 - Click 'Code'
 - Click 'Download Zip'
-<video src='https://www.loom.com/share/a46e840a0cb64387a5dd69db59c51a86' width=180/>
-
-
 
 # Usage
 - Open command prompt or anaconda prompt
