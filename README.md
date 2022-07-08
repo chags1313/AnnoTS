@@ -12,6 +12,10 @@ A Signal Annotation Application for Time Series Data
 - Open command prompt or anaconda prompt
 - `pip install -r requirements.txt`
 
+# Downloading Repo
+- Click 'Code'
+- Click 'Download Zip'
+
 # Usage
 - Open command prompt or anaconda prompt
 - `cd ./GUI`
