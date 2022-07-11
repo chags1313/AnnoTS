@@ -8,9 +8,6 @@ from PyQt5.QtGui import *
 import random
 import webbrowser
 
-"""
-Check list dialog windoww
-"""
 
 class ChecklistDialog(QtWidgets.QDialog):
 
@@ -82,9 +79,6 @@ class ChecklistDialog(QtWidgets.QDialog):
             item = self.model.item(i)
             item.setCheckState(QtCore.Qt.Unchecked)
             
-"""
-Template for user interface
-"""
 
 
 class Ui_MainWindow(object):
@@ -712,9 +706,6 @@ class Ui_MainWindow(object):
             self.lr.setBounds([0, len(self.signal_df.index.values)])
             self.signalWidget.addItem(self.lr)
         
-"""
-Hard coded annotations
-"""
     def class_1_img(self):
         self.classes_args(cur_class = 1, brush = (255, 102, 102, 100))
         if self.c1_cnt == 0:
