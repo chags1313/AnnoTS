@@ -1,6 +1,9 @@
 # AnnoTS
 A Signal Annotation Application for Time Series Data
 
+# Background
+`AnnoTS` is a graphical user interface designed for annotation of time series data
+
 ## Windows Binary
 [Download Link for .exe application](https://drive.google.com/file/d/18wWFlmYd1ILkzCFirR-QgnQrnkkxbOL_/view?usp=sharing) 
 
@@ -10,8 +13,6 @@ A Signal Annotation Application for Time Series Data
 ## Binary Usage
 [![Usage](https://github.com/chags1313/AnnoTS/blob/main/other/docs/usage.png?raw=true)](https://www.loom.com/share/5ea2f46af25849908a906d2534a3f1ff)
 
-# Background
-`AnnoTS` is a graphical user interface designed for annotation of time series data
 
 # Downloading Repo
 - Click 'Code'
