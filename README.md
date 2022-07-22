@@ -8,7 +8,7 @@ A Signal Annotation Application for Time Series Data
 [![Download and Install](https://github.com/chags1313/AnnoTS/blob/main/other/docs/downloadinstall.png?raw=true)](https://www.loom.com/share/0f994dbe1b054bc585fa8156ca8643ac)
 
 ## Binary Usage
-[![Usage](https://github.com/chags1313/AnnoTS/blob/main/other/docs/downloadinstall.png?raw=true)](https://www.loom.com/share/5ea2f46af25849908a906d2534a3f1ff)
+[![Usage](https://github.com/chags1313/AnnoTS/blob/main/other/docs/usage.png?raw=true)](https://www.loom.com/share/5ea2f46af25849908a906d2534a3f1ff)
 
 # Background
 `AnnoTS` is a graphical user interface designed for annotation of time series data
