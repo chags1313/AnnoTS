@@ -2,7 +2,7 @@
 A Signal Annotation Application for Time Series Data
 
 ## Background
-`AnnoTS` is a GUI-based annotation software using several Python libraries (PyQT5, pyqtgraph, and pandas) to annotate IMU or time series data for machine learning applications. 
+`AnnoTS` is a GUI-based annotation software using several Python libraries (PyQT5, pyqtgraph, and pandas) to annotate or label time series signals for machine learning applications. 
 
 Users can freely access the application as a standalone executable or open-source Python code and customize the tool to support their data annotation needs. 
 
