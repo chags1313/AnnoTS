@@ -29,4 +29,4 @@ A Signal Annotation Application for Time Series Data
 - `python main.py`
 
 # Help
-- View wiki page 'https://github.com/chags1313/AnnoTS/wiki'
+- [View the wiki page](https://github.com/chags1313/AnnoTS/wiki)) 
