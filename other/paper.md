@@ -1,5 +1,5 @@
 ---
-title: "AnnoTS: a multi-activity annotation tool for inertial measurement unit data"
+title: 'AnnoTS: a multi-activity annotation tool for inertial measurement unit data'
 
 tags:
   - Annotation
@@ -7,8 +7,22 @@ tags:
   - User Interface
   - Human Activity Recognition
   - Machine Learning
+
 authors:
-  - name: Cole J. Hagen^[Corresponding author cole.hagen0001@temple.edu], Tessa C. Johnson, Shivayogi V. Hiremath
+  - name: Cole J. Hagen
+    orcid: 0000-0001-7241-8455
+    corresponding: true # (This is how to denote the corresponding author)
+    affiliation: 1 
+  - name: Tessa C. Johnson
+    affiliation: 1
+  - name: Shivayogi V. Hiremath
+    affiliation: 1
+affiliations:
+ - name: Personal Health Informatics Lab, Temple University, United States
+   index: 1
+
+date: 27 July 2022
+bibliography: paper.bib
 ---
 # Statement of need
 Developing high-quality classification models for human activity recognition often relies on manual annotation of inertial measurement unit data (IMU). For example, applying a machine learning classifier to identify standing, sitting, and laying from three-axis accelerometer recordings requires precise ground truth annotations to correctly delineate subtle differences in acceleration between each activity. Despite the wide availability of annotation software, there is current demand for user-friendly annotation tools that accommodate more than one time-series signal (e.g., x-axis, y-axis, and z-axis accelerometer and gyroscope) and offer customizable labeling options for subsequent training and validation of machine learning models. 
