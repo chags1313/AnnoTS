@@ -1,5 +1,5 @@
 # AnnoTS
-A Signal Annotation Application for Time Series Data
+A Signal Annotation Application for Time Series Data [![DOI](https://zenodo.org/badge/435076373.svg)](https://zenodo.org/badge/latestdoi/435076373)
 
 ## Background
 `AnnoTS` is a GUI-based annotation software using several Python libraries (PyQT5, pyqtgraph, and pandas) to annotate or label time series signals for machine learning applications. 
